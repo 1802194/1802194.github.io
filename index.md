@@ -4,4 +4,4 @@
 - [First Day Demo](firstDemo)
 
 ## Assignments
-- Assignments go here
+- [Interactive Scene](interactivescene)
