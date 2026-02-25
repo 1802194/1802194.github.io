@@ -26,6 +26,9 @@ function draw() {
   circleMove();
   vel.y = speedY;
   vel.x = speedX;
+  vel.normalize();
+  vel.x *= 10;
+  vel.y *= 10;
   pos.add(vel);
   friction();
   speedLimit();
