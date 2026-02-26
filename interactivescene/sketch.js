@@ -1,12 +1,9 @@
 let circleX;
 let circleY;
-let speedX;
-let speedY;
+let speed;
 let diameter = 50;
 let pos;
 let vel;
-let accelX = 1;
-let accelY = 1;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -15,39 +12,15 @@ function setup() {
   circleY = windowHeight / 2;
   pos = createVector(circleX, circleY);
   vel = createVector(0, 0);
-  speedX = 0;
-  speedY = 0;
+  speed = 10;
 }
 
 function draw() {
   background(255);
   
   circleDraw();
+  circleControl();
   circleMove();
-  vel.y = speedY;
-  vel.x = speedX;
-  vel.normalize();
-  vel.x *= 10;
-  vel.y *= 10;
-  pos.add(vel);
-  friction();
-  speedLimit();
-  
-}
-
-function circleMove() {
-  if (keyIsDown(87)) { //w
-    speedY -= accelY;
-  }
-  if (keyIsDown(65)) { //a
-    speedX -= accelX;
-  }
-  if (keyIsDown(83)) { //s
-    speedY += accelY;
-  }
-  if (keyIsDown(68)) { //d
-    speedX += accelX;
-  }
 }
 
 function circleDraw() {
@@ -55,32 +28,26 @@ function circleDraw() {
   circle(pos.x, pos.y, diameter);
 }
 
-function friction() {
-  if (speedX > 0) {
-    speedX -= accelX / 2;
+function circleControl() {
+  if (keyIsDown(87)) { //w
+    vel.y = -1;
   }
-  if (speedX < 0) {
-    speedX += accelX / 2;
+  if (keyIsDown(65)) { //a
+    vel.x = -1;
   }
-  if (speedY > 0) {
-    speedY -= accelY / 2;
+  if (keyIsDown(83)) { //s
+    vel.y = 1;
   }
-  if (speedY < 0) {
-    speedY += accelY / 2;
+  if (keyIsDown(68)) { //d
+    vel.x = 1;
   }
 }
 
-function speedLimit() {
-  if (speedX > 10) {
-    speedX -= accelX / 2;
-  }
-  if (speedX < -10) {
-    speedX += accelX / 2;
-  }
-  if (speedY > 10) {
-    speedY -= accelY / 2;
-  }
-  if (speedY < -10) {
-    speedY += accelY / 2;
-  }
+function circleMove() {
+  vel.normalize();
+  vel.x *= speed;
+  vel.y *= speed;
+  pos.add(vel);
+  vel.x = 0
+  vel.y = 0
 }
