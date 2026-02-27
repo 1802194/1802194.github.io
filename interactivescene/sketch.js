@@ -1,5 +1,3 @@
-let circleX;
-let circleY;
 let speed;
 let diameter = 50;
 let pos;
@@ -11,9 +9,7 @@ let trail = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
-  circleX = windowWidth / 2;
-  circleY = windowHeight / 2;
-  pos = createVector(circleX, circleY);
+  pos = createVector(windowWidth / 2, windowHeight / 2);
   vel = createVector(0, 0);
   speed = 10;
   sprintSpeed = 1;
