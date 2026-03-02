@@ -1,6 +1,7 @@
 // Interactive Scene
 // Tyler Hiebert
 // Extra for experts: Using arrays to make a trail for the moveable circle
+//                    Using the sroll wheel to control speed
 // Trail references:
 // https://editor.p5js.org/move.mimi/sketches/H1flrLLVG
 // https://editor.p5js.org/melodyloveless/sketches/l5GR7rWbF
@@ -31,6 +32,7 @@ function draw() {
   sprintController();
   SprintTrail();
   circleMove();
+  deflate();
 }
 
 function circleDraw() {
@@ -100,10 +102,6 @@ function SprintTrail() {
   }
 }
 
-function speedControl() {
-  mouseWheel();
-}
-
 function mouseWheel(scroll) {
   // Increases speed when you scroll up
   if (scroll.delta < 0) {
@@ -112,5 +110,19 @@ function mouseWheel(scroll) {
   // Decreases speed when you scroll down
   if (scroll.delta > 0 && speed > 0) {
     speed -= 1;
+  }
+}
+
+function deflate() {
+  // Circle deflates back to normal after size increases
+  if (diameter > 50) {
+    diameter -= 1
+  }
+}
+
+function mouseClicked() {
+  // Circle gets larger when the mouse is clicked
+  if (diameter < 1000) {
+    diameter += 20
   }
 }
