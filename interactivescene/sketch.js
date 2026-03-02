@@ -1,3 +1,11 @@
+// Interactive Scene
+// Tyler Hiebert
+// Extra for experts: Using arrays to make a trail for the moveable circle
+// Trail references:
+// https://editor.p5js.org/move.mimi/sketches/H1flrLLVG
+// https://editor.p5js.org/melodyloveless/sketches/l5GR7rWbF
+// https://www.youtube.com/watch?v=XgHo-aoa5ts
+
 let speed;
 let diameter = 50;
 let pos;
@@ -26,11 +34,13 @@ function draw() {
 }
 
 function circleDraw() {
+  // Draws a moveable circle
   fill("black");
   circle(pos.x, pos.y, diameter);
 }
 
 function circleControl() {
+  // Sets the direction of movement based on the key pressed
   if (keyIsDown(87)) { //w
     vel.y = -1;
   }
@@ -46,6 +56,7 @@ function circleControl() {
 }
 
 function circleMove() {
+  // Normalizes the velocity variable then moves the player
   vel.normalize();
   vel.x *= speed * sprintSpeed;
   vel.y *= speed * sprintSpeed;
@@ -55,6 +66,7 @@ function circleMove() {
 }
 
 function sprintController() {
+  // Holding space doubles speed
   if (keyIsDown(32)) { //spacebar
     isSprinting = true;
     sprintSpeed = 2;
@@ -66,8 +78,11 @@ function sprintController() {
 }
 
 function SprintTrail() {
+  // While holding space the player has a ghost trail
   trail.push([pos.x, pos.y]);
+  // Only has the trail while sprinting
   if (isSprinting) {
+    // Draws the trail and makes it fade out
     for (t=0; t<trail.length; t++) {
       let alpha = 255 * (t/trail.length/2);
       fill(0,0,0,alpha);
