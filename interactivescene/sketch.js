@@ -99,3 +99,18 @@ function SprintTrail() {
     }
   }
 }
+
+function speedControl() {
+  mouseWheel();
+}
+
+function mouseWheel(scroll) {
+  // Increases speed when you scroll up
+  if (scroll.delta < 0) {
+    speed += 1;
+  }
+  // Decreases speed when you scroll down
+  if (scroll.delta > 0 && speed > 0) {
+    speed -= 1;
+  }
+}
