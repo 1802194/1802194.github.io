@@ -116,13 +116,13 @@ function mouseWheel(scroll) {
 function deflate() {
   // Circle deflates back to normal after size increases
   if (diameter > 50) {
-    diameter -= 1
+    diameter -= 1;
   }
 }
 
 function mouseClicked() {
   // Circle gets larger when the mouse is clicked
   if (diameter < 1000) {
-    diameter += 20
+    diameter += 20;
   }
 }
