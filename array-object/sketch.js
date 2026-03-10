@@ -12,6 +12,7 @@ let playerSpeed = 10;
 let sprintSpeed = 1;
 let isSprinting = false;
 let playerTrail = [];
+let enemies = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -63,8 +64,8 @@ function playerMove() {
 }
 
 function sprintController() {
-  // Holding space doubles speed
-  if (keyIsDown(32)) { //spacebar
+  // Holding shift doubles speed
+  if (keyIsDown(16)) { //shift
     isSprinting = true;
     sprintSpeed = 2;
   }
