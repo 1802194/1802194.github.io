@@ -13,6 +13,12 @@ let sprintSpeed = 1;
 let isSprinting = false;
 let playerTrail = [];
 let enemies = [];
+let enemy = {
+  x: 0,
+  y: 0,
+  diameter: 50,
+  health: 100,
+};
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
