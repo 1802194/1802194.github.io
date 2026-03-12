@@ -13,18 +13,17 @@ let sprintSpeed = 1;
 let isSprinting = false;
 let playerTrail = [];
 let enemies = [];
-let enemy = {
-  x: 0,
-  y: 0,
-  diameter: 50,
-  health: 100,
-};
+let enemy;
+let enemySpawner;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   noStroke();
   playerPos = createVector(windowWidth / 2, windowHeight / 2);
   playerVel = createVector(0, 0);
+  spawnEnemy();
+  enemySpawner = setInterval(spawnEnemy, 5000);
+
 }
 
 function draw() {
@@ -35,6 +34,7 @@ function draw() {
   sprintController();
   sprintTrail();
   playerMove();
+  enemyManager();
 }
 
 function playerDraw() {
@@ -100,5 +100,29 @@ function sprintTrail() {
     if (playerTrail.length > 0) {
       playerTrail.shift();
     }
+  }
+}
+
+function spawnEnemy() {
+  // Function that can be called in order to spawn an enemy
+  enemy = {
+    x: 0,
+    y: 0,
+    diameter: 50,
+    health: 100,
+  };
+  enemies.push(enemy);
+}
+
+function displayEnemy(theEnemy) {
+  // Function that draws an enemy on the scene
+  fill("red");
+  circle(theEnemy.x, theEnemy.y, theEnemy.diameter);
+}
+
+function enemyManager() {
+  // Calls functions needed to keep enemies working properly
+  for (let theEnemy of enemies) {
+    displayEnemy(theEnemy);
   }
 }
