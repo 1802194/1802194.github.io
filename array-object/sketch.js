@@ -106,8 +106,7 @@ function sprintTrail() {
 function spawnEnemy() {
   // Function that can be called in order to spawn an enemy
   enemy = {
-    x: 0,
-    y: 0,
+    enemyPos: createVector(0,0),
     diameter: 50,
     health: 100,
   };
@@ -117,7 +116,12 @@ function spawnEnemy() {
 function displayEnemy(theEnemy) {
   // Function that draws an enemy on the scene
   fill("red");
-  circle(theEnemy.x, theEnemy.y, theEnemy.diameter);
+  circle(theEnemy.enemyPos.x, theEnemy.enemyPos.y, theEnemy.diameter);
+}
+
+function moveEnemy() {
+  // Causes an enemy to move towards the player
+
 }
 
 function enemyManager() {
