@@ -14,7 +14,7 @@ let isSprinting = false;
 let playerTrail = [];
 let enemies = [];
 let enemy;
-let enemySpawner;
+let enemySpawner; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -34,6 +34,7 @@ function draw() {
   sprintController();
   sprintTrail();
   playerMove();
+  mapBoundary();
   enemyManager();
 }
 
@@ -67,6 +68,22 @@ function playerMove() {
   playerPos.add(playerVel);
   playerVel.x = 0;
   playerVel.y = 0;
+}
+
+function mapBoundary() {
+  // Keeps the player from leaving the screen
+  if (playerPos.x > windowWidth) {
+    playerPos.x -= playerSpeed * sprintSpeed;
+  }
+  if (playerPos.x < 0) {
+    playerPos.x += playerSpeed * sprintSpeed;
+  }
+  if (playerPos.y > windowHeight) {
+    playerPos.y -= playerSpeed * sprintSpeed;
+  }
+  if (playerPos.y < 0) {
+    playerPos.y += playerSpeed * sprintSpeed;
+  }
 }
 
 function sprintController() {
