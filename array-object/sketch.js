@@ -106,9 +106,12 @@ function sprintTrail() {
 function spawnEnemy() {
   // Function that can be called in order to spawn an enemy
   enemy = {
-    enemyPos: createVector(0,0),
+    pos: createVector(0,0),
+    vel: createVector(0,0),
+    distanceFromPlayer: createVector(0,0),
     diameter: 50,
     health: 100,
+    speed: 5
   };
   enemies.push(enemy);
 }
@@ -116,11 +119,20 @@ function spawnEnemy() {
 function displayEnemy(theEnemy) {
   // Function that draws an enemy on the scene
   fill("red");
-  circle(theEnemy.enemyPos.x, theEnemy.enemyPos.y, theEnemy.diameter);
+  circle(theEnemy.pos.x, theEnemy.pos.y, theEnemy.diameter);
 }
 
-function moveEnemy() {
+function moveEnemy(theEnemy) {
   // Causes an enemy to move towards the player
+  theEnemy.distanceFromPlayer.x = playerPos.x - theEnemy.pos.x;
+  theEnemy.distanceFromPlayer.y = playerPos.y - theEnemy.pos.y;
+  theEnemy.vel = theEnemy.distanceFromPlayer;
+  theEnemy.vel.normalize();
+  theEnemy.vel.x *= theEnemy.speed;
+  theEnemy.vel.y *= theEnemy.speed;
+  theEnemy.pos.add(theEnemy.vel);
+  theEnemy.vel.x = 0;
+  theEnemy.vel.y = 0;
 
 }
 
@@ -128,5 +140,6 @@ function enemyManager() {
   // Calls functions needed to keep enemies working properly
   for (let theEnemy of enemies) {
     displayEnemy(theEnemy);
+    moveEnemy(theEnemy);
   }
 }
