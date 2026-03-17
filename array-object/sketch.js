@@ -15,6 +15,7 @@ let playerTrail = [];
 let enemies = [];
 let enemy;
 let enemySpawner; 
+let gameOver = false;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -29,13 +30,20 @@ function setup() {
 function draw() {
   background(220);
 
-  playerDraw();
-  playerControl();
-  sprintController();
-  sprintTrail();
-  playerMove();
-  mapBoundary();
-  enemyManager();
+  if (gameOver === false) {
+    playerDraw();
+    playerControl();
+    sprintController();
+    sprintTrail();
+    playerMove();
+    mapBoundary();
+    enemyManager();
+  }
+  else {
+    textSize(100);
+    fill("red");
+    text("GAME OVER", width / 3, height / 2);
+  }
 }
 
 function playerDraw() {
@@ -169,14 +177,14 @@ function collisionDetection(theEnemy) {
   // Detects when an enemy makes contact with the player
   if (theEnemy.ghost === false) {
     if (dist(theEnemy.pos.x, theEnemy.pos.y, playerPos.x, playerPos.y) < 45) {
-      enemies.splice(enemies[theEnemy], 1);
-      console.log(enemies);
+      gameOver = true;
     }
   }
 }
 
 function enemyManager() {
   // Calls functions needed to keep enemies working properly
+
   for (let theEnemy of enemies) {
     displayEnemy(theEnemy);
     moveEnemy(theEnemy);
