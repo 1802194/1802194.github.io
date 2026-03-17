@@ -3,7 +3,9 @@
 // March 5/26
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// Added background music using the preload function
+// The song on youtube https://www.youtube.com/watch?v=17IZjvr5c1I
+// I got the mp3 file from newgrounds https://www.newgrounds.com/audio/listen/792910
 
 let playerDiameter = 50;
 let playerPos;
@@ -16,6 +18,11 @@ let enemies = [];
 let enemy;
 let enemySpawner; 
 let gameOver = false;
+let music;
+
+function preload() {
+  music = loadSound("1NF3$+@+!0N.mp3");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -24,7 +31,7 @@ function setup() {
   playerVel = createVector(0, 0);
   spawnEnemy();
   enemySpawner = setInterval(spawnEnemy, 5000);
-
+  music.loop();
 }
 
 function draw() {
