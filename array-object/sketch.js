@@ -123,7 +123,7 @@ function sprintTrail() {
 function spawnEnemy() {
   // Function that can be called in order to spawn an enemy
   enemy = {
-    pos: createVector(0,0),
+    pos: createVector(random(50, windowWidth - 50), random(50, windowHeight - 50)),
     vel: createVector(0,0),
     distanceFromPlayer: createVector(0,0),
     diameter: 50,
@@ -155,7 +155,8 @@ function moveEnemy(theEnemy) {
 function collisionDetection(theEnemy) {
   // Detects when an enemy makes contact with the player
   if (dist(theEnemy.pos.x, theEnemy.pos.y, playerPos.x, playerPos.y) < 45) {
-    enemies.splice(theEnemy, 1);
+    enemies.splice(enemies[theEnemy], 1);
+    console.log(enemies)
   }
 }
 
