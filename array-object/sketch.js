@@ -128,15 +128,22 @@ function spawnEnemy() {
     distanceFromPlayer: createVector(0,0),
     diameter: 50,
     health: 100,
-    speed: 5
+    speed: 5,
+    ghost: true,
   };
   enemies.push(enemy);
 }
 
 function displayEnemy(theEnemy) {
   // Function that draws an enemy on the scene
-  fill("red");
-  circle(theEnemy.pos.x, theEnemy.pos.y, theEnemy.diameter);
+  if (theEnemy.ghost === false){
+    fill("red");
+    circle(theEnemy.pos.x, theEnemy.pos.y, theEnemy.diameter);
+  }
+  if (theEnemy.ghost === true){
+    fill(255, 0, 0, 50);
+    circle(theEnemy.pos.x, theEnemy.pos.y, theEnemy.diameter);
+  }
 }
 
 function moveEnemy(theEnemy) {
@@ -156,7 +163,7 @@ function collisionDetection(theEnemy) {
   // Detects when an enemy makes contact with the player
   if (dist(theEnemy.pos.x, theEnemy.pos.y, playerPos.x, playerPos.y) < 45) {
     enemies.splice(enemies[theEnemy], 1);
-    console.log(enemies)
+    console.log(enemies);
   }
 }
 
