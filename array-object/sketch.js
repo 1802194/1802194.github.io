@@ -150,7 +150,13 @@ function moveEnemy(theEnemy) {
   theEnemy.pos.add(theEnemy.vel);
   theEnemy.vel.x = 0;
   theEnemy.vel.y = 0;
+}
 
+function collisionDetection(theEnemy) {
+  // Detects when an enemy makes contact with the player
+  if (dist(theEnemy.pos.x, theEnemy.pos.y, playerPos.x, playerPos.y) < 45) {
+    enemies.splice(theEnemy, 1);
+  }
 }
 
 function enemyManager() {
@@ -158,5 +164,6 @@ function enemyManager() {
   for (let theEnemy of enemies) {
     displayEnemy(theEnemy);
     moveEnemy(theEnemy);
+    collisionDetection(theEnemy);
   }
 }
