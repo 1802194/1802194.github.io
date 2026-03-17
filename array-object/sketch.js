@@ -130,12 +130,13 @@ function spawnEnemy() {
     health: 100,
     speed: 5,
     ghost: true,
+    timeOfSpawn: millis(),
   };
   enemies.push(enemy);
 }
 
 function displayEnemy(theEnemy) {
-  // Function that draws an enemy on the scene
+  // Function that draws an enemy on the scene and causes them to telegraph where they will appear
   if (theEnemy.ghost === false){
     fill("red");
     circle(theEnemy.pos.x, theEnemy.pos.y, theEnemy.diameter);
@@ -143,27 +144,34 @@ function displayEnemy(theEnemy) {
   if (theEnemy.ghost === true){
     fill(255, 0, 0, 50);
     circle(theEnemy.pos.x, theEnemy.pos.y, theEnemy.diameter);
+    if (millis() > theEnemy.timeOfSpawn + 3000) {
+      theEnemy.ghost = false;
+    }
   }
 }
 
 function moveEnemy(theEnemy) {
   // Causes an enemy to move towards the player
-  theEnemy.distanceFromPlayer.x = playerPos.x - theEnemy.pos.x;
-  theEnemy.distanceFromPlayer.y = playerPos.y - theEnemy.pos.y;
-  theEnemy.vel = theEnemy.distanceFromPlayer;
-  theEnemy.vel.normalize();
-  theEnemy.vel.x *= theEnemy.speed;
-  theEnemy.vel.y *= theEnemy.speed;
-  theEnemy.pos.add(theEnemy.vel);
-  theEnemy.vel.x = 0;
-  theEnemy.vel.y = 0;
+  if (theEnemy.ghost === false){
+    theEnemy.distanceFromPlayer.x = playerPos.x - theEnemy.pos.x;
+    theEnemy.distanceFromPlayer.y = playerPos.y - theEnemy.pos.y;
+    theEnemy.vel = theEnemy.distanceFromPlayer;
+    theEnemy.vel.normalize();
+    theEnemy.vel.x *= theEnemy.speed;
+    theEnemy.vel.y *= theEnemy.speed;
+    theEnemy.pos.add(theEnemy.vel);
+    theEnemy.vel.x = 0;
+    theEnemy.vel.y = 0;
+  }
 }
 
 function collisionDetection(theEnemy) {
   // Detects when an enemy makes contact with the player
-  if (dist(theEnemy.pos.x, theEnemy.pos.y, playerPos.x, playerPos.y) < 45) {
-    enemies.splice(enemies[theEnemy], 1);
-    console.log(enemies);
+  if (theEnemy.ghost === false) {
+    if (dist(theEnemy.pos.x, theEnemy.pos.y, playerPos.x, playerPos.y) < 45) {
+      enemies.splice(enemies[theEnemy], 1);
+      console.log(enemies);
+    }
   }
 }
 
