@@ -1,13 +1,13 @@
 // Grid Demo
 // Tyler Hiebert
 
-let theGrid = [[1,1,1,1], 
-               [1,1,1,1],
-               [1,1,1,1],
-               [1,1,1,1]];
+// let theGrid = [[1,1,1,1], 
+//                [1,1,1,1],
+//                [1,1,1,1],
+//                [1,1,1,1]];
 
-const SQUARE_DIMENSIONS = theGrid.length;
-
+let theGrid;
+const SQUARE_DIMENSIONS = 10;
 let cellSize;
 
 function setup() {
@@ -18,6 +18,7 @@ function setup() {
   else {
     cellSize = height/SQUARE_DIMENSIONS;
   }
+  theGrid = generateRandomGrid(SQUARE_DIMENSIONS, SQUARE_DIMENSIONS);
 }
 
 function draw() {
@@ -40,5 +41,21 @@ function showGrid() {
 }
 
 function mouseClicked() {
-  theGrid[mouseY][mouseX] *= -1;
+  theGrid[Math.floor(mouseY / cellSize)][Math.floor(mouseX / cellSize)] *= -1;
+}
+
+function generateRandomGrid(cols, rows) {
+  let newGrid = [];
+  for (let y = 0; y < rows; y ++) {
+    newGrid.push([]);
+    for (let x = 0; x < cols; x ++) {
+      if (random(100) < 50) {
+        newGrid[y].push(-1);
+      }
+      else {
+        newGrid[y].push(1);
+      }
+    }
+  }
+  return newGrid;
 }
