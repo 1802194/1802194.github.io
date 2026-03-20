@@ -8,6 +8,7 @@
 - [Generative Art](gen-art)
 - [Perlin Noise](perlin)
 - [2d Grid](grid)
+- [Rectangular Grid](rectgrid)
 
 ## Assignments
 - [Interactive Scene](interactivescene)
