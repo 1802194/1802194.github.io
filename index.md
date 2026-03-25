@@ -10,6 +10,7 @@
 - [2d Grid](grid)
 - [Rectangular Grid](rectgrid)
 - [Game of Life](life)
+- [Character in Grid](character)
 
 ## Assignments
 - [Interactive Scene](interactivescene)
