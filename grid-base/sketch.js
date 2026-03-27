@@ -11,9 +11,15 @@ const DIRT = 1;
 const PLAYER = 9;
 let cellSize;
 let thePlayer = {
-  x:0,
-  y:0,
+  x:7,
+  y:7,
 };
+let grid;
+let levelOne;
+
+function preload() {
+  levelOne = loadJSON("level-1.json");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -23,7 +29,7 @@ function setup() {
   else {
     cellSize = windowHeight / ROWS;
   }
-  grid = generateRandomGrid(COLS, ROWS);
+  grid = levelOne;
 
   //add player to the grid
   grid[thePlayer.y][thePlayer.x] = PLAYER;
@@ -34,47 +40,26 @@ function draw() {
   displayGrid();
 }
 
-function generateRandomGrid(COLS, ROWS) {
-  let newGrid = [];
-  for (let y = 0; y <= ROWS; y++) {
-    newGrid.push([]);
-    for (let x = 0; x <= COLS; x ++) {
-      if (random(100) < 50) {
-        newGrid[y].push(DIRT);
-      }
-      else {
-        newGrid[y].push(OPEN_TILE);
-      }
-    }
-  }
-  return newGrid;
-}
-
 function displayGrid() {
   for (let y = 0; y < ROWS; y++) {
     for (let x = 0; x < COLS; x++) {
       if (grid[y][x] === DIRT) {
-        fill("Black");
+        stroke("Brown");
+        fill("Brown");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
       if (grid[y][x] === OPEN_TILE) {
-        fill("White");
+        stroke("Black");
+        fill("Black");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
       if (grid[y][x] === PLAYER) {
+        stroke("Red");
         fill("Red");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
     }
   }
-}
-
-function mousePressed() {
-  let x = Math.floor(mouseX/cellSize);
-  let y = Math.floor(mouseY/cellSize);
-
-  //self
-  toggleCell(x, y);
 }
 
 function toggleCell(x ,y) {
@@ -90,14 +75,6 @@ function toggleCell(x ,y) {
 }
 
 function keyPressed() {
-  if (key === "r") {
-    grid = generateRandomGrid(COLS, ROWS);
-    grid[thePlayer.y][thePlayer.x] = PLAYER;
-  }
-  if (key === "e") {
-    grid = generateEmptyGrid(COLS, ROWS);
-    grid[thePlayer.y][thePlayer.x] = PLAYER;
-  }
   if (key === "s") {
     movePlayer(thePlayer.x, thePlayer.y + 1);
   }
@@ -110,17 +87,6 @@ function keyPressed() {
   if (key === "d") {
     movePlayer(thePlayer.x + 1, thePlayer.y);
   }
-}
-
-function generateEmptyGrid(COLS, ROWS) {
-  let newGrid = [];
-  for (let y = 0; y < ROWS; y++) {
-    newGrid.push([]);
-    for (let x = 0; x < COLS; x++) {
-      newGrid[y].push(OPEN_TILE);
-    }
-  }
-  return newGrid;
 }
 
 function movePlayer(x, y) {
