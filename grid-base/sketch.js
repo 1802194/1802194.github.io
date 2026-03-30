@@ -8,6 +8,7 @@ const ROWS = 16;
 const COLS = 16;
 const OPEN_TILE = 0;
 const DIRT = 1;
+const BOULDER = 2;
 const PLAYER = 9;
 let cellSize;
 let thePlayer = {
@@ -44,8 +45,8 @@ function displayGrid() {
   for (let y = 0; y < ROWS; y++) {
     for (let x = 0; x < COLS; x++) {
       if (grid[y][x] === DIRT) {
-        stroke("Brown");
-        fill("Brown");
+        stroke("rgb(80, 47, 4)");
+        fill("rgb(80, 47, 4)");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
       if (grid[y][x] === OPEN_TILE) {
@@ -53,9 +54,18 @@ function displayGrid() {
         fill("Black");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
+      if (grid[y][x] === BOULDER) {
+        stroke("Gray");
+        fill("Gray");
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+        if (grid[y+1][x] === OPEN_TILE) {
+          grid[y][x] = OPEN_TILE;
+          grid[y+1][x] = BOULDER;
+        }
+      }
       if (grid[y][x] === PLAYER) {
-        stroke("Red");
-        fill("Red");
+        stroke("Blue");
+        fill("Blue");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
     }
@@ -90,7 +100,7 @@ function keyPressed() {
 }
 
 function movePlayer(x, y) {
-  if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
+  if (x >= 0 && x < COLS && y >= 0 && y < ROWS && grid[y][x] !== BOULDER) {
     // Previous position
     let oldX = thePlayer.x;
     let oldY = thePlayer.y;
