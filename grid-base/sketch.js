@@ -9,12 +9,14 @@ const COLS = 16;
 const OPEN_TILE = 0;
 const DIRT = 1;
 const BOULDER = 2;
+const PLAYER_ATTACK = 5;
 const ENEMY = 8;
 const PLAYER = 9;
 let cellSize;
 let thePlayer = {
   x:7,
   y:7,
+  isFacing:0,
 };
 let grid;
 let levelOne;
@@ -49,6 +51,7 @@ function draw() {
   if (gameState === 0) {
     displayGrid();
   }
+  // Displays the loss screen
   else if (gameState === 1) {
     gameOver();
   }
@@ -86,6 +89,11 @@ function displayGrid() {
         fill("red");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
+      if (grid[y][x] === PLAYER_ATTACK) {
+        stroke("green");
+        fill("green");
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
     }
   }
 }
@@ -95,21 +103,25 @@ function keyPressed() {
     // Moves down
     enemyContact(thePlayer.x, thePlayer.y + 1);
     movePlayer(thePlayer.x, thePlayer.y + 1);
+    thePlayer.isFacing = 0;
   }
   if (key === "w") {
     // Moves up
     enemyContact(thePlayer.x, thePlayer.y - 1);
     movePlayer(thePlayer.x, thePlayer.y - 1);
+    thePlayer.isFacing = 2;
   }
   if (key === "a") {
     // Moves left
     enemyContact(thePlayer.x - 1, thePlayer.y);
     movePlayer(thePlayer.x - 1, thePlayer.y);
+    thePlayer.isFacing = 1;
   }
   if (key === "d") {
     // Moves Right
     enemyContact(thePlayer.x + 1, thePlayer.y);
     movePlayer(thePlayer.x + 1, thePlayer.y);
+    thePlayer.isFacing = 3;
   }
 }
 
@@ -139,6 +151,7 @@ function enemyContact(x, y) {
 }
 
 function gameOver() {
+  // Loss screen
   background(150);
   textAlign(CENTER);
   textSize(70);
