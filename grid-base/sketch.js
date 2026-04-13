@@ -45,6 +45,7 @@ function setup() {
 
 function draw() {
   background(220);
+  // Only keeps the game running until you win or lose
   if (gameState === 0) {
     displayGrid();
   }
@@ -86,32 +87,24 @@ function displayGrid() {
   }
 }
 
-function toggleCell(x ,y) {
-  //make sure the cell actually exists!
-  if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
-    if (grid[y][x] === DIRT) {
-      grid[y][x] = OPEN_TILE;
-    }
-    else if (grid[y][x] === OPEN_TILE) {
-      grid[y][x] = DIRT;
-    }
-  }
-}
-
 function keyPressed() {
   if (key === "s") {
+    // Moves down
     enemyContact(thePlayer.x, thePlayer.y + 1);
     movePlayer(thePlayer.x, thePlayer.y + 1);
   }
   if (key === "w") {
+    // Moves up
     enemyContact(thePlayer.x, thePlayer.y - 1);
     movePlayer(thePlayer.x, thePlayer.y - 1);
   }
   if (key === "a") {
+    // Moves left
     enemyContact(thePlayer.x - 1, thePlayer.y);
     movePlayer(thePlayer.x - 1, thePlayer.y);
   }
   if (key === "d") {
+    // Moves Right
     enemyContact(thePlayer.x + 1, thePlayer.y);
     movePlayer(thePlayer.x + 1, thePlayer.y);
   }
@@ -136,6 +129,7 @@ function movePlayer(x, y) {
 }
 
 function enemyContact(x, y) {
+  // Ends the game when the player touches an enemy
   if (grid[y][x] === ENEMY) {
     gameState = 1;
   }
