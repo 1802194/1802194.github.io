@@ -9,6 +9,7 @@ const COLS = 16;
 const OPEN_TILE = 0;
 const DIRT = 1;
 const BOULDER = 2;
+const ENEMY = 8;
 const PLAYER = 9;
 let cellSize;
 let thePlayer = {
@@ -17,6 +18,12 @@ let thePlayer = {
 };
 let grid;
 let levelOne;
+let theEnemy = {
+  x:0,
+  y:0,
+  isHunting:false,
+};
+let gameState = 0;
 
 function preload() {
   levelOne = loadJSON("level-1.json");
@@ -38,7 +45,9 @@ function setup() {
 
 function draw() {
   background(220);
-  displayGrid();
+  if (gameState === 0) {
+    displayGrid();
+  }
 }
 
 function displayGrid() {
@@ -58,7 +67,7 @@ function displayGrid() {
         stroke("Gray");
         fill("Gray");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
-        if (grid[y+1][x] === OPEN_TILE) {
+        if (grid[y+1][x] === OPEN_TILE || grid[y+1][x] === ENEMY) {
           grid[y][x] = OPEN_TILE;
           grid[y+1][x] = BOULDER;
         }
@@ -66,6 +75,11 @@ function displayGrid() {
       if (grid[y][x] === PLAYER) {
         stroke("Blue");
         fill("Blue");
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
+      if (grid[y][x] === ENEMY) {
+        stroke("red");
+        fill("red");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
       }
     }
@@ -86,15 +100,19 @@ function toggleCell(x ,y) {
 
 function keyPressed() {
   if (key === "s") {
+    enemyContact(thePlayer.x, thePlayer.y + 1);
     movePlayer(thePlayer.x, thePlayer.y + 1);
   }
   if (key === "w") {
+    enemyContact(thePlayer.x, thePlayer.y - 1);
     movePlayer(thePlayer.x, thePlayer.y - 1);
   }
   if (key === "a") {
+    enemyContact(thePlayer.x - 1, thePlayer.y);
     movePlayer(thePlayer.x - 1, thePlayer.y);
   }
   if (key === "d") {
+    enemyContact(thePlayer.x + 1, thePlayer.y);
     movePlayer(thePlayer.x + 1, thePlayer.y);
   }
 }
@@ -114,5 +132,11 @@ function movePlayer(x, y) {
 
     // reset the old location to be an open tile
     grid[oldY][oldX] = 0;
+  }
+}
+
+function enemyContact(x, y) {
+  if (grid[y][x] === ENEMY) {
+    gameState = 1;
   }
 }
