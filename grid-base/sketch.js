@@ -49,6 +49,9 @@ function draw() {
   if (gameState === 0) {
     displayGrid();
   }
+  else if (gameState === 1) {
+    gameOver();
+  }
 }
 
 function displayGrid() {
@@ -133,4 +136,11 @@ function enemyContact(x, y) {
   if (grid[y][x] === ENEMY) {
     gameState = 1;
   }
+}
+
+function gameOver() {
+  background(150);
+  textAlign(CENTER);
+  textSize(70);
+  text("GAME OVER", width / 2, height / 2);
 }
