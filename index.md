@@ -11,6 +11,7 @@
 - [Rectangular Grid](rectgrid)
 - [Game of Life](life)
 - [Character in Grid](character)
+- [Walker OOP](walker)
 
 ## Assignments
 - [Interactive Scene](interactivescene)
