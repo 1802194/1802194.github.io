@@ -123,6 +123,10 @@ function keyPressed() {
     movePlayer(thePlayer.x + 1, thePlayer.y);
     thePlayer.isFacing = 3;
   }
+  if (key === "j") {
+    // Makes the player attack
+    playerAttack(thePlayer.x, thePlayer.y);
+  }
 }
 
 function movePlayer(x, y) {
@@ -139,7 +143,7 @@ function movePlayer(x, y) {
     grid[thePlayer.y][thePlayer.x] = PLAYER;
 
     // reset the old location to be an open tile
-    grid[oldY][oldX] = 0;
+    grid[oldY][oldX] = OPEN_TILE;
   }
 }
 
@@ -157,3 +161,13 @@ function gameOver() {
   textSize(70);
   text("GAME OVER", width / 2, height / 2);
 }
+
+function playerAttack(x, y) {
+  if (thePlayer.isFacing === 0 && x >= 0 && x < COLS && y >= 0 && y < ROWS - 1 && grid[y + 1][x] !== BOULDER) {
+    grid[y + 1][x] = PLAYER_ATTACK;
+    setTimeout(function(){
+      grid[y + 1][x] = OPEN_TILE;
+    }, 200);
+  }
+}
+
