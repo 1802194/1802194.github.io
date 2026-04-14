@@ -169,5 +169,23 @@ function playerAttack(x, y) {
       grid[y + 1][x] = OPEN_TILE;
     }, 200);
   }
+  if (thePlayer.isFacing === 1 && x >= 1 && x < COLS && y >= 0 && y < ROWS && grid[y][x - 1] !== BOULDER) {
+    grid[y][x - 1] = PLAYER_ATTACK;
+    setTimeout(function(){
+      grid[y][x - 1] = OPEN_TILE;
+    }, 200);
+  }
+  if (thePlayer.isFacing === 2 && x >= 0 && x < COLS && y >= 1 && y < ROWS + 1 && grid[y - 1][x] !== BOULDER) {
+    grid[y - 1][x] = PLAYER_ATTACK;
+    setTimeout(function(){
+      grid[y - 1][x] = OPEN_TILE;
+    }, 200);
+  }
+  if (thePlayer.isFacing === 3 && x >= 0 && x < COLS - 1 && y >= 0 && y < ROWS && grid[y][x + 1] !== BOULDER) {
+    grid[y][x + 1] = PLAYER_ATTACK;
+    setTimeout(function(){
+      grid[y][x + 1] = OPEN_TILE;
+    }, 200);
+  }
 }
 
