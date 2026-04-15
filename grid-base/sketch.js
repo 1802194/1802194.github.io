@@ -1,8 +1,5 @@
 // 2D Grid Project
 // Tyler Hiebert
-//
-// Extra for Experts:
-// - describe what you did to take this project "above and beyond"
 
 const ROWS = 16;
 const COLS = 16;
@@ -50,10 +47,14 @@ function draw() {
   // Only keeps the game running until you win or lose
   if (gameState === 0) {
     displayGrid();
+    enemiesAlive();
   }
   // Displays the loss screen
   else if (gameState === 1) {
     gameOver();
+  }
+  else {
+    winScreen();
   }
 }
 
@@ -163,24 +164,28 @@ function gameOver() {
 }
 
 function playerAttack(x, y) {
+  // Attacks down
   if (thePlayer.isFacing === 0 && x >= 0 && x < COLS && y >= 0 && y < ROWS - 1 && grid[y + 1][x] !== BOULDER) {
     grid[y + 1][x] = PLAYER_ATTACK;
     setTimeout(function(){
       grid[y + 1][x] = OPEN_TILE;
     }, 200);
   }
+  // Attacks left
   if (thePlayer.isFacing === 1 && x >= 1 && x < COLS && y >= 0 && y < ROWS && grid[y][x - 1] !== BOULDER) {
     grid[y][x - 1] = PLAYER_ATTACK;
     setTimeout(function(){
       grid[y][x - 1] = OPEN_TILE;
     }, 200);
   }
+  // Attacks up
   if (thePlayer.isFacing === 2 && x >= 0 && x < COLS && y >= 1 && y < ROWS + 1 && grid[y - 1][x] !== BOULDER) {
     grid[y - 1][x] = PLAYER_ATTACK;
     setTimeout(function(){
       grid[y - 1][x] = OPEN_TILE;
     }, 200);
   }
+  // Attacks right
   if (thePlayer.isFacing === 3 && x >= 0 && x < COLS - 1 && y >= 0 && y < ROWS && grid[y][x + 1] !== BOULDER) {
     grid[y][x + 1] = PLAYER_ATTACK;
     setTimeout(function(){
@@ -189,3 +194,24 @@ function playerAttack(x, y) {
   }
 }
 
+function enemiesAlive() {
+  enemiesRemain = false;
+  for (let y = 0; y < ROWS; y++) {
+    for (let x = 0; x < COLS; x++) {
+      if (grid[y][x] === ENEMY) {
+        enemiesRemain = true;
+      }
+    }
+  }
+  if (!enemiesRemain) {
+    gameState = 2
+  }
+}
+
+function winScreen() {
+  // Win screen
+  background(150);
+  textAlign(CENTER);
+  textSize(70);
+  text("YOU WIN!", width / 2, height / 2);
+}
