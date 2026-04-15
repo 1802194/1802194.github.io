@@ -204,7 +204,7 @@ function enemiesAlive() {
     }
   }
   if (!enemiesRemain) {
-    gameState = 2
+    gameState = 2;
   }
 }
 
