@@ -37,19 +37,40 @@ class Walker {
   }
 }
 
-let james;
-let vina;
+let theWalkers = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  james = new Walker(width/2, height/2);
-  vina = new Walker(300, 500);
-  vina.colour = "green";
 }
 
-function draw() {
-  james.move();
-  vina.move();
-  james.display();
-  vina.display();
+function draw () {
+  for (let someWalker of theWalkers) {
+    someWalker.move();
+    someWalker.display();
+  }
 }
+
+function mousePressed() {
+  let theGuy = new Walker(mouseX, mouseY);
+  theGuy.colour = color(random(255), random(255), random(255));
+  theWalkers.push(theGuy);
+}
+
+// Version with only 2 walkers
+
+// let james;
+// let vina;
+
+// function setup() {
+//   createCanvas(windowWidth, windowHeight);
+//   james = new Walker(width/2, height/2);
+//   vina = new Walker(300, 500);
+//   vina.colour = "green";
+// }
+
+// function draw() {
+//   james.move();
+//   vina.move();
+//   james.display();
+//   vina.display();
+// }
