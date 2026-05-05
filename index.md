@@ -16,6 +16,7 @@
 - [Ball Collision OOP](ballcollision)
 - [Connected Nodes](nodes)
 - [OOP Inheritance](inheritance)
+- [Collide2D Demo](collide)
 
 ## Assignments
 - [Interactive Scene](interactivescene)
