@@ -17,6 +17,7 @@
 - [Connected Nodes](nodes)
 - [OOP Inheritance](inheritance)
 - [Collide2D Demo](collide)
+- [Recursive Circles](recursion)
 
 ## Assignments
 - [Interactive Scene](interactivescene)
